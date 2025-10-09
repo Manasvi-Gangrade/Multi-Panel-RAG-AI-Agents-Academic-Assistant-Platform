@@ -1,0 +1,135 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 220 20% 97%;
+    --foreground: 224 30% 12%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 224 30% 12%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 224 30% 12%;
+
+    --primary: 224 76% 48%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 220 14% 94%;
+    --secondary-foreground: 224 30% 12%;
+
+    --muted: 220 14% 94%;
+    --muted-foreground: 220 10% 46%;
+
+    --accent: 220 14% 94%;
+    --accent-foreground: 224 30% 12%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 220 13% 90%;
+    --input: 220 13% 90%;
+    --ring: 224 76% 48%;
+
+    --radius: 0.75rem;
+
+    /* Role-specific accent colors */
+    --student: 217 91% 60%;
+    --student-light: 217 91% 95%;
+    --student-glow: 217 91% 70%;
+
+    --teacher: 160 84% 39%;
+    --teacher-light: 160 84% 94%;
+    --teacher-glow: 160 84% 55%;
+
+    --researcher: 263 70% 58%;
+    --researcher-light: 263 70% 95%;
+    --researcher-glow: 263 70% 68%;
+
+    /* Glass effect */
+    --glass: 0 0% 100% / 0.7;
+    --glass-border: 0 0% 100% / 0.3;
+
+    /* Gradients */
+    --gradient-student: linear-gradient(135deg, hsl(217 91% 60%), hsl(200 95% 55%));
+    --gradient-teacher: linear-gradient(135deg, hsl(160 84% 39%), hsl(140 70% 50%));
+    --gradient-researcher: linear-gradient(135deg, hsl(263 70% 58%), hsl(280 80% 60%));
+    --gradient-hero: linear-gradient(135deg, hsl(220 20% 97%), hsl(217 91% 97%), hsl(263 70% 97%));
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Inter', sans-serif;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Space Grotesk', sans-serif;
+  }
+}
+
+@layer utilities {
+  .glass-card {
+    @apply bg-white/70 backdrop-blur-xl border border-white/30 shadow-lg;
+  }
+  .glass-card-strong {
+    @apply bg-white/85 backdrop-blur-2xl border border-white/40 shadow-xl;
+  }
+  .gradient-student {
+    background: var(--gradient-student);
+  }
+  .gradient-teacher {
+    background: var(--gradient-teacher);
+  }
+  .gradient-researcher {
+    background: var(--gradient-researcher);
+  }
+  .gradient-hero {
+    background: var(--gradient-hero);
+  }
+  .text-gradient-student {
+    background: var(--gradient-student);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .text-gradient-teacher {
+    background: var(--gradient-teacher);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .text-gradient-researcher {
+    background: var(--gradient-researcher);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .panel-shadow-student {
+    box-shadow: 0 8px 32px -8px hsl(217 91% 60% / 0.15);
+  }
+  .panel-shadow-teacher {
+    box-shadow: 0 8px 32px -8px hsl(160 84% 39% / 0.15);
+  }
+  .panel-shadow-researcher {
+    box-shadow: 0 8px 32px -8px hsl(263 70% 58% / 0.15);
+  }
+  .avatar-glow {
+    box-shadow: 0 0 40px 10px hsl(217 91% 60% / 0.3), 0 0 80px 20px hsl(217 91% 60% / 0.1);
+  }
+}
