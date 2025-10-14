@@ -1,0 +1,260 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Outfit:wght@300..700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 45 30% 97%;
+    --foreground: 30 10% 10%;
+
+    --card: 45 40% 99%;
+    --card-foreground: 30 10% 10%;
+
+    --popover: 45 40% 99%;
+    --popover-foreground: 30 10% 10%;
+
+    --primary: 42 100% 50%;
+    --primary-foreground: 30 10% 10%;
+    --primary-glow: 45 100% 60%;
+
+    --secondary: 45 20% 93%;
+    --secondary-foreground: 30 10% 10%;
+
+    --muted: 45 15% 92%;
+    --muted-foreground: 30 10% 40%;
+
+    --accent: 38 100% 55%;
+    --accent-foreground: 30 10% 10%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 40 20% 88%;
+    --input: 40 20% 88%;
+    --ring: 42 100% 50%;
+
+    --radius: 0.75rem;
+
+    /* Role-specific colors - warm palette */
+    --student: 45 95% 48%;
+    --student-foreground: 30 10% 10%;
+    --student-glow: 45 100% 60%;
+    
+    --teacher: 25 95% 53%;
+    --teacher-foreground: 0 0% 100%;
+    --teacher-glow: 25 100% 65%;
+    
+    --researcher: 15 90% 50%;
+    --researcher-foreground: 0 0% 100%;
+    --researcher-glow: 15 100% 62%;
+
+    /* Gradients - warm amber tones */
+    --gradient-primary: linear-gradient(135deg, hsl(42 100% 50%) 0%, hsl(25 95% 53%) 100%);
+    --gradient-student: linear-gradient(135deg, hsl(45 95% 48%) 0%, hsl(50 90% 55%) 100%);
+    --gradient-teacher: linear-gradient(135deg, hsl(25 95% 53%) 0%, hsl(35 90% 58%) 100%);
+    --gradient-researcher: linear-gradient(135deg, hsl(15 90% 50%) 0%, hsl(25 95% 55%) 100%);
+    --gradient-hero: linear-gradient(135deg, hsl(45 100% 55%) 0%, hsl(35 95% 50%) 50%, hsl(25 90% 52%) 100%);
+    --gradient-glass: linear-gradient(135deg, rgba(255,250,240,0.9) 0%, rgba(255,248,230,0.6) 100%);
+
+    /* Shadows - warm glow */
+    --shadow-sm: 0 1px 2px 0 hsl(30 20% 20% / 0.05);
+    --shadow-md: 0 4px 6px -1px hsl(30 20% 20% / 0.1), 0 2px 4px -2px hsl(30 20% 20% / 0.1);
+    --shadow-lg: 0 10px 15px -3px hsl(30 20% 20% / 0.1), 0 4px 6px -4px hsl(30 20% 20% / 0.1);
+    --shadow-xl: 0 20px 25px -5px hsl(30 20% 20% / 0.1), 0 8px 10px -6px hsl(30 20% 20% / 0.1);
+    --shadow-glow: 0 0 40px hsl(42 100% 50% / 0.4);
+    --shadow-student-glow: 0 0 40px hsl(45 95% 48% / 0.4);
+    --shadow-teacher-glow: 0 0 40px hsl(25 95% 53% / 0.4);
+    --shadow-researcher-glow: 0 0 40px hsl(15 90% 50% / 0.4);
+
+    --sidebar-background: 45 40% 99%;
+    --sidebar-foreground: 30 10% 10%;
+    --sidebar-primary: 42 100% 50%;
+    --sidebar-primary-foreground: 30 10% 10%;
+    --sidebar-accent: 45 30% 94%;
+    --sidebar-accent-foreground: 30 10% 10%;
+    --sidebar-border: 40 20% 88%;
+    --sidebar-ring: 42 100% 50%;
+  }
+
+  .dark {
+    --background: 25 20% 8%;
+    --foreground: 45 20% 95%;
+
+    --card: 25 20% 12%;
+    --card-foreground: 45 20% 95%;
+
+    --popover: 25 20% 12%;
+    --popover-foreground: 45 20% 95%;
+
+    --primary: 42 100% 55%;
+    --primary-foreground: 25 20% 8%;
+    --primary-glow: 45 100% 65%;
+
+    --secondary: 25 15% 18%;
+    --secondary-foreground: 45 20% 95%;
+
+    --muted: 25 15% 18%;
+    --muted-foreground: 40 10% 55%;
+
+    --accent: 38 100% 50%;
+    --accent-foreground: 25 20% 8%;
+
+    --destructive: 0 62% 50%;
+    --destructive-foreground: 45 20% 95%;
+
+    --border: 25 15% 20%;
+    --input: 25 15% 20%;
+    --ring: 42 100% 55%;
+
+    /* Dark mode role colors */
+    --student: 45 100% 55%;
+    --student-glow: 45 100% 65%;
+    
+    --teacher: 25 100% 58%;
+    --teacher-glow: 25 100% 68%;
+    
+    --researcher: 15 95% 55%;
+    --researcher-glow: 15 100% 65%;
+
+    --sidebar-background: 25 20% 10%;
+    --sidebar-foreground: 45 20% 95%;
+    --sidebar-primary: 42 100% 55%;
+    --sidebar-primary-foreground: 25 20% 8%;
+    --sidebar-accent: 25 15% 18%;
+    --sidebar-accent-foreground: 45 20% 95%;
+    --sidebar-border: 25 15% 20%;
+    --sidebar-ring: 42 100% 55%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display font-semibold tracking-tight;
+  }
+}
+
+@layer components {
+  .glass-card {
+    @apply bg-card/80 backdrop-blur-xl border border-border/50 shadow-lg;
+  }
+
+  .gradient-text {
+    @apply bg-clip-text text-transparent;
+    background-image: var(--gradient-hero);
+  }
+
+  .gradient-primary {
+    background-image: var(--gradient-primary);
+  }
+
+  .gradient-student {
+    background-image: var(--gradient-student);
+  }
+
+  .gradient-teacher {
+    background-image: var(--gradient-teacher);
+  }
+
+  .gradient-researcher {
+    background-image: var(--gradient-researcher);
+  }
+
+  .gradient-hero {
+    background-image: var(--gradient-hero);
+  }
+
+  .shadow-glow {
+    box-shadow: var(--shadow-glow);
+  }
+
+  .shadow-student-glow {
+    box-shadow: var(--shadow-student-glow);
+  }
+
+  .shadow-teacher-glow {
+    box-shadow: var(--shadow-teacher-glow);
+  }
+
+  .shadow-researcher-glow {
+    box-shadow: var(--shadow-researcher-glow);
+  }
+
+  .pattern-grid {
+    background-image: 
+      linear-gradient(to right, hsl(var(--border)) 1px, transparent 1px),
+      linear-gradient(to bottom, hsl(var(--border)) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+
+  .pattern-dots {
+    background-image: radial-gradient(hsl(var(--border)) 1px, transparent 1px);
+    background-size: 20px 20px;
+  }
+
+  /* Warm accent styling */
+  .warm-glow {
+    position: relative;
+  }
+  
+  .warm-glow::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    background: var(--gradient-primary);
+    border-radius: inherit;
+    z-index: -1;
+    opacity: 0.3;
+    filter: blur(20px);
+  }
+}
+
+@layer utilities {
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  .animate-pulse-slow {
+    animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  .animate-gradient {
+    animation: gradient 8s ease infinite;
+    background-size: 200% 200%;
+  }
+
+  .animate-shimmer {
+    animation: shimmer 2s linear infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+  }
+
+  @keyframes gradient {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  @keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+  }
+}
