@@ -8,6 +8,7 @@ import { VoiceWaveform } from "./VoiceWaveform";
 import { Badge } from "@/components/ui/badge";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
+import { RGPVSyllabus } from "@/lib/syllabus";
 
 type Role = "student" | "teacher" | "researcher";
 
@@ -100,19 +101,122 @@ export function AIChatInterface({ role, placeholder, systemContext }: AIChatInte
 
     // Simulate AI response
     setTimeout(() => {
-      const responses = sampleResponses[role];
-      const randomResponse = responses[Math.floor(Math.random() * responses.length)];
+      let responseText = "";
+      const query = input.toLowerCase();
+
+      // Find if we have dynamic context in the systemContext string (e.g. "SubjectCode:AL-501,Unit:3")
+      let activeSubjectCode = "";
+      let activeUnitNum = 0;
+      if (systemContext) {
+        const matches = systemContext.match(/SubjectCode:([^,]+),Unit:(\d+)/);
+        if (matches) {
+          activeSubjectCode = matches[1];
+          activeUnitNum = parseInt(matches[2], 10);
+        }
+      }
+
+      // Try to find a matching syllabus subject and unit
+      const subject = RGPVSyllabus.find(s => s.code === activeSubjectCode);
+      const unit = subject?.units.find(u => u.number === activeUnitNum);
+
+      // Check if user is asking for syllabus questions
+      if (query.includes("syllabus") || query.includes("objective") || query.includes("outcome") || query.includes("what is AL-") || query.includes("what is al-")) {
+        if (subject) {
+          responseText = `**RGPV ${subject.code}: ${subject.name}** Syllabus Overview:\n\n` +
+            `**Course Objectives:**\n${subject.objectives.map(o => `* ${o}`).join("\n")}\n\n` +
+            `**Course Outcomes:**\n${subject.outcomes.slice(0, 2).map(o => `* ${o}`).join("\n")}\n\n` +
+            `**Units Included:**\n${subject.units.map(u => `* Unit ${u.number}: ${u.title}`).join("\n")}`;
+        } else {
+          responseText = "This portal is fully synchronized with the **RGPV 5th Semester AIML Syllabus**! You can select any subject (Operating Systems, DBMS, Deep Learning, NLP, Optimization, AI in Healthcare, Info Retrieval, Computational Intelligence) to load detailed RGPV reference answers, syllabus maps, and unit guides.";
+        }
+      } 
+      // Check if user is asking for textbooks
+      else if (query.includes("book") || query.includes("textbook") || query.includes("reference") || query.includes("author")) {
+        if (subject) {
+          responseText = `Here are the **RGPV Recommended Textbooks & References** for **${subject.code} (${subject.name})**:\n\n` +
+            `**Recommended Textbooks:**\n${subject.textbooks.map((b, idx) => `${idx + 1}. ${b}`).join("\n")}\n\n` +
+            `**Reference Books:**\n${subject.references.length > 0 ? subject.references.map((b, idx) => `${idx + 1}. ${b}`).join("\n") : "Standard university publications."}`;
+        } else {
+          responseText = "I can guide you on RGPV textbooks. Please select a specific 5th Sem AIML subject (such as AL-501 OS or AL-502 DBMS) from the dashboard, and ask me about its recommended textbooks!";
+        }
+      }
+      // Check if we can find a keyword match in the active unit's sample questions or general database
+      else {
+        let foundMatch = false;
+
+        // First look in the active unit's sample questions
+        if (unit) {
+          for (const q of unit.sampleQuestions) {
+            const questionWords = q.question.toLowerCase().split(" ");
+            if (unit.keyKeywords.some(kw => query.includes(kw.toLowerCase())) || 
+                questionWords.some(w => w.length > 4 && query.includes(w))) {
+              responseText = `**[RGPV Syllabus Focus: ${subject?.code} - Unit ${unit.number}]**\n\n` +
+                `**Q: ${q.question}**\n\n` +
+                `**A:** ${q.answer}\n\n` +
+                `*Reference: ${subject?.textbooks[0]}*`;
+              foundMatch = true;
+              break;
+            }
+          }
+        }
+
+        // If not found in the active unit, look in any unit of any subject
+        if (!foundMatch) {
+          for (const subj of RGPVSyllabus) {
+            for (const u of subj.units) {
+              for (const q of u.sampleQuestions) {
+                if (u.keyKeywords.some(kw => query.includes(kw.toLowerCase())) || 
+                    q.question.toLowerCase().split(" ").some(w => w.length > 4 && query.includes(w))) {
+                  responseText = `**[RGPV Syllabus Focus: ${subj.code} - Unit ${u.number}: ${u.title}]**\n\n` +
+                    `**Q: ${q.question}**\n\n` +
+                    `**A:** ${q.answer}\n\n` +
+                    `*Textbook: ${subj.textbooks[0]}*`;
+                  foundMatch = true;
+                  break;
+                }
+              }
+              if (foundMatch) break;
+            }
+            if (foundMatch) break;
+          }
+        }
+
+        // Default to a rich context-aware Hinglish response if no direct match
+        if (!responseText) {
+          const hinglishGreet = isHinglish 
+            ? "Aapke selected RGPV syllabus topic ko analyze kiya hai. " 
+            : "I've analyzed your RGPV syllabus query. ";
+
+          if (subject && unit) {
+            responseText = `${hinglishGreet}Let's review **${subject.code} (Unit ${unit.number}: ${unit.title})**:\n\n` +
+              `This unit covers:\n*"${unit.contents.substring(0, 150)}..."*\n\n` +
+              `Would you like me to:\n` +
+              `1. Generate an RGPV exam-style question paper for this unit?\n` +
+              `2. Give you a detailed description of keywords: **${unit.keyKeywords.slice(0, 4).join(", ")}**?\n` +
+              `3. Create a set of interactive revision flashcards?`;
+          } else if (subject) {
+            responseText = `${hinglishGreet}I am currently configured for **${subject.code} (${subject.name})**.\n\n` +
+              `Please select a specific Unit (1 to 5) in the study plan to access concentrated questions, dynamic notes, or select one of the following quick revision questions:\n` +
+              `* *"Explain standard concepts of ${subject.name}"*\n` +
+              `* *"What are the recommended reference books for ${subject.code}?"*\n` +
+              `* *"Generate a quick RGPV mock quiz for this subject."*`;
+          } else {
+            responseText = `${hinglishGreet}I can help you thoroughly revise all RGPV 5th Semester AIML subjects!\n\n` +
+              `Please ask me about concepts from **AL-501 Operating Systems** (e.g. semaphores, paging, system calls), **AL-502 DBMS** (e.g. BCNF, serializability, stored procedures), **AL-503 Deep Learning / IR / Optimization**, or **AL-504 NLP / AI in Healthcare / Computational Intelligence**.`;
+          }
+        }
+      }
 
       const assistantMessage: Message = {
         id: (Date.now() + 1).toString(),
         role: "assistant",
-        content: randomResponse,
+        content: responseText,
         timestamp: new Date(),
       };
 
       setMessages((prev) => [...prev, assistantMessage]);
       setIsTyping(false);
-    }, 1500);
+    }, 1200);
   };
 
   return (

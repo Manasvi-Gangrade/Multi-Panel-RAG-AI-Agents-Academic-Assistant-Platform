@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { toast } from "@/hooks/use-toast";
+import { RGPVSyllabus } from "@/lib/syllabus";
 
 type Role = "student" | "teacher" | "researcher";
 
@@ -54,6 +55,8 @@ export function UploadZone({
   const [isDragOver, setIsDragOver] = useState(false);
   const [files, setFiles] = useState<UploadedFile[]>([]);
   const [isProcessing, setIsProcessing] = useState(false);
+  const [taggedSubjectCode, setTaggedSubjectCode] = useState("AL-501");
+  const [taggedUnitNum, setTaggedUnitNum] = useState(1);
   const styles = roleStyles[role];
 
   const simulateUpload = (file: File): Promise<void> => {
@@ -213,6 +216,40 @@ export function UploadZone({
         ))}
       </div>
 
+      {/* RGPV Tagging Selector */}
+      <div className="rounded-xl border border-border bg-card/60 p-4 space-y-3">
+        <h4 className="text-xs font-bold uppercase tracking-wider text-muted-foreground flex items-center gap-1.5">
+          <FileText className={cn("h-4 w-4", styles.icon)} />
+          RGPV Syllabus Target Tagging
+        </h4>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div className="space-y-1">
+            <label className="text-[10px] font-bold text-muted-foreground uppercase">Target Course</label>
+            <select
+              value={taggedSubjectCode}
+              onChange={(e) => setTaggedSubjectCode(e.target.value)}
+              className="w-full rounded-lg border border-border bg-background p-2 text-xs font-medium focus:ring-1 focus:ring-primary focus:outline-none"
+            >
+              {RGPVSyllabus.map(s => (
+                <option key={s.code} value={s.code}>{s.code} - {s.name}</option>
+              ))}
+            </select>
+          </div>
+          <div className="space-y-1">
+            <label className="text-[10px] font-bold text-muted-foreground uppercase">Target Unit</label>
+            <select
+              value={taggedUnitNum}
+              onChange={(e) => setTaggedUnitNum(parseInt(e.target.value, 10))}
+              className="w-full rounded-lg border border-border bg-background p-2 text-xs font-medium focus:ring-1 focus:ring-primary focus:outline-none"
+            >
+              {[1, 2, 3, 4, 5].map(n => (
+                <option key={n} value={n}>Unit {n}: {RGPVSyllabus.find(s => s.code === taggedSubjectCode)?.units.find(u => u.number === n)?.title || `Module ${n}`}</option>
+              ))}
+            </select>
+          </div>
+        </div>
+      </div>
+
       <motion.div
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
@@ -308,8 +345,10 @@ export function UploadZone({
                     animate={{ opacity: 1, height: "auto" }}
                     className="mt-2 text-[11px] text-muted-foreground bg-background/50 p-2 rounded border border-border/50"
                   >
-                    <span className="font-semibold block mb-1">AI INSIGHT:</span>
-                    Key concepts detected: Thermodynamics, Entropy, Heat Engines.
+                    <span className="font-semibold block mb-1">AI SYLLABUS INSIGHT:</span>
+                    Key concepts detected for <strong>{taggedSubjectCode} (Unit {taggedUnitNum})</strong>: {
+                      RGPVSyllabus.find(s => s.code === taggedSubjectCode)?.units.find(u => u.number === taggedUnitNum)?.keyKeywords.join(", ") || "Syllabus topics identified."
+                    }
                   </motion.div>
                 )}
               </motion.div>
