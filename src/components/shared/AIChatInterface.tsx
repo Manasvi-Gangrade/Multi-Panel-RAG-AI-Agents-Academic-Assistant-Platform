@@ -27,22 +27,31 @@ interface AIChatInterfaceProps {
 
 const roleStyles = {
   student: {
-    accent: "bg-student",
-    accentLight: "bg-student/10",
-    text: "text-student",
-    border: "border-student",
+    accent: "bg-student hover:bg-student/90 text-black",
+    accentLight: "bg-student/5 dark:bg-student/10 border-b border-student/10",
+    text: "text-student font-bold",
+    border: "border-student/30",
+    userBubble: "bg-gradient-to-r from-student via-amber-400 to-yellow-300 text-black font-bold shadow-md shadow-student/10 rounded-2xl px-4 py-3",
+    assistantBubble: "bg-student/5 dark:bg-student/10 border border-student/20 shadow-sm shadow-student/5 rounded-2xl px-4 py-3 text-foreground",
+    botIcon: "bg-student text-black font-extrabold"
   },
   teacher: {
-    accent: "bg-teacher",
-    accentLight: "bg-teacher/10",
-    text: "text-teacher",
-    border: "border-teacher",
+    accent: "bg-teacher hover:bg-teacher/90 text-white",
+    accentLight: "bg-teacher/5 dark:bg-teacher/10 border-b border-teacher/10",
+    text: "text-teacher font-bold",
+    border: "border-teacher/30",
+    userBubble: "bg-gradient-to-r from-teacher via-orange-500 to-red-400 text-white font-semibold shadow-md shadow-teacher/10 rounded-2xl px-4 py-3",
+    assistantBubble: "bg-teacher/5 dark:bg-teacher/10 border border-teacher/20 shadow-sm shadow-teacher/5 rounded-2xl px-4 py-3 text-foreground",
+    botIcon: "bg-teacher text-white font-extrabold"
   },
   researcher: {
-    accent: "bg-researcher",
-    accentLight: "bg-researcher/10",
-    text: "text-researcher",
-    border: "border-researcher",
+    accent: "bg-researcher hover:bg-researcher/90 text-white",
+    accentLight: "bg-researcher/5 dark:bg-researcher/10 border-b border-researcher/10",
+    text: "text-researcher font-bold",
+    border: "border-researcher/30",
+    userBubble: "bg-gradient-to-r from-researcher via-rose-500 to-pink-500 text-white font-semibold shadow-md shadow-researcher/10 rounded-2xl px-4 py-3",
+    assistantBubble: "bg-researcher/5 dark:bg-researcher/10 border border-researcher/20 shadow-sm shadow-researcher/5 rounded-2xl px-4 py-3 text-foreground",
+    botIcon: "bg-researcher text-white font-extrabold"
   },
 };
 
@@ -264,25 +273,26 @@ export function AIChatInterface({ role, placeholder, systemContext }: AIChatInte
             >
               <div
                 className={cn(
-                  "flex h-8 w-8 shrink-0 items-center justify-center rounded-full",
-                  message.role === "user" ? "bg-primary" : styles.accent
+                  "flex h-8 w-8 shrink-0 items-center justify-center rounded-full shadow-sm",
+                  message.role === "user" ? "bg-muted text-foreground border border-border" : styles.botIcon
                 )}
               >
                 {message.role === "user" ? (
-                  <User className="h-4 w-4 text-primary-foreground" />
+                  <User className="h-4 w-4 text-foreground" />
                 ) : (
-                  <Bot className="h-4 w-4 text-primary-foreground" />
+                  <Bot className="h-4 w-4 text-current" />
                 )}
               </div>
               <div
-                className={cn(
-                  "max-w-[75%] rounded-2xl px-4 py-3",
+                className={
                   message.role === "user"
-                    ? "bg-primary text-primary-foreground"
-                    : "bg-muted"
-                )}
+                    ? styles.userBubble
+                    : styles.assistantBubble
+                }
               >
-                <p className="text-sm leading-relaxed">{message.content}</p>
+                <div className="text-sm leading-relaxed space-y-2">
+                  {renderMarkdownContent(message.content, role)}
+                </div>
                 <p className="mt-1 text-[10px] opacity-60">
                   {message.timestamp.toLocaleTimeString([], {
                     hour: "2-digit",
@@ -353,4 +363,163 @@ export function AIChatInterface({ role, placeholder, systemContext }: AIChatInte
       </div>
     </div>
   );
+}
+
+// Simple Markdown parser for structured RGPV sessional responses
+function renderMarkdownContent(text: string, role: Role) {
+  if (!text) return null;
+  
+  // Split by double newline to separate paragraphs/sections
+  const blocks = text.split(/\n\n+/);
+  
+  return (
+    <div className="space-y-3">
+      {blocks.map((block, bIdx) => {
+        const lines = block.split("\n");
+        
+        // Check if the entire block consists only of list items
+        const isBulletList = lines.every(line => line.trim().startsWith("* ") || line.trim().startsWith("- "));
+        const isNumberedList = lines.every(line => /^\d+\.\s/.test(line.trim()));
+        
+        if (isBulletList) {
+          return (
+            <ul key={bIdx} className="list-disc ml-5 space-y-1.5 my-2">
+              {lines.map((line, lIdx) => {
+                const cleanText = line.trim().substring(2);
+                return (
+                  <li key={lIdx} className="text-sm leading-relaxed pl-0.5">
+                    {parseInlineBold(cleanText, role)}
+                  </li>
+                );
+              })}
+            </ul>
+          );
+        }
+        
+        if (isNumberedList) {
+          return (
+            <ol key={bIdx} className="space-y-2 my-2.5">
+              {lines.map((line, lIdx) => {
+                const cleanText = line.trim().replace(/^\d+\.\s/, "");
+                const num = lIdx + 1;
+                return (
+                  <li key={lIdx} className="list-none">
+                    <div className="flex items-center gap-3 rounded-xl border border-border/50 bg-background/50 dark:bg-background/25 p-3 shadow-sm hover:scale-[1.01] hover:bg-background/80 transition-all duration-300">
+                      <span className={cn(
+                        "flex h-5 w-5 shrink-0 items-center justify-center rounded-md font-mono text-[10px] font-bold text-white",
+                        role === "student" ? "bg-student text-black" : role === "teacher" ? "bg-teacher" : "bg-researcher"
+                      )}>
+                        {num}
+                      </span>
+                      <span className="flex-1 text-xs font-semibold text-foreground">{parseInlineBold(cleanText, role)}</span>
+                    </div>
+                  </li>
+                );
+              })}
+            </ol>
+          );
+        }
+        
+        // Standalone headers
+        if (block.trim().startsWith("### ")) {
+          return (
+            <h5 key={bIdx} className="font-display font-bold text-xs text-foreground mt-3 mb-1 uppercase tracking-wider">
+              {parseInlineBold(block.trim().substring(4), role)}
+            </h5>
+          );
+        }
+        if (block.trim().startsWith("## ")) {
+          return (
+            <h4 key={bIdx} className="font-display font-bold text-sm text-foreground mt-4 mb-1">
+              {parseInlineBold(block.trim().substring(3), role)}
+            </h4>
+          );
+        }
+        if (block.trim().startsWith("# ")) {
+          return (
+            <h3 key={bIdx} className="font-display font-extrabold text-base text-foreground mt-5 mb-2 border-b border-border pb-1">
+              {parseInlineBold(block.trim().substring(2), role)}
+            </h3>
+          );
+        }
+        
+        // Regular paragraph with potential single newlines (like lists combined with text or multi-line equations)
+        return (
+          <p key={bIdx} className="text-sm leading-relaxed">
+            {lines.map((line, lIdx) => renderLine(line, lIdx, role))}
+          </p>
+        );
+      })}
+    </div>
+  );
+}
+
+// Single-line formatter supporting bullet markers, number markers, and inline bold
+function renderLine(line: string, index: number, role: Role) {
+  const trimmed = line.trim();
+  
+  if (trimmed.startsWith("* ") || trimmed.startsWith("- ")) {
+    const content = trimmed.substring(2);
+    return (
+      <span key={index} className={cn(
+        "flex items-start gap-2.5 py-1.5 pl-3 border-l-2 my-1.5 rounded-r-lg bg-background/20",
+        role === "student" ? "border-student/50" : role === "teacher" ? "border-teacher/50" : "border-researcher/50"
+      )}>
+        <span className={cn(
+          "h-1.5 w-1.5 rounded-full mt-2 shrink-0 animate-pulse",
+          role === "student" ? "bg-student" : role === "teacher" ? "bg-teacher" : "bg-researcher"
+        )} />
+        <span className="flex-1 text-xs leading-relaxed text-foreground">{parseInlineBold(content, role)}</span>
+      </span>
+    );
+  }
+  
+  if (/^\d+\.\s/.test(trimmed)) {
+    const numMatch = trimmed.match(/^(\d+)\.\s(.*)/);
+    if (numMatch) {
+      const num = numMatch[1];
+      const content = numMatch[2];
+      return (
+        <span key={index} className="block my-1.5">
+          <div className="flex items-center gap-3 rounded-xl border border-border/50 bg-background/50 dark:bg-background/25 p-3 shadow-sm hover:scale-[1.01] hover:bg-background/80 transition-all duration-300">
+            <span className={cn(
+              "flex h-5 w-5 shrink-0 items-center justify-center rounded-md font-mono text-[10px] font-bold text-white",
+              role === "student" ? "bg-student text-black" : role === "teacher" ? "bg-teacher" : "bg-researcher"
+            )}>
+              {num}
+            </span>
+            <span className="flex-1 text-xs font-semibold text-foreground">{parseInlineBold(content, role)}</span>
+          </div>
+        </span>
+      );
+    }
+  }
+
+  return (
+    <span key={index} className="block mt-1 first:mt-0 leading-relaxed">
+      {parseInlineBold(line, role)}
+    </span>
+  );
+}
+
+// Inline double-asterisk **bold** generator with dynamic role colors
+function parseInlineBold(text: string, role?: Role) {
+  if (!text.includes("**")) return text;
+  
+  const parts = text.split("**");
+  return parts.map((part, index) => {
+    if (index % 2 === 1) {
+      return (
+        <strong key={index} className={cn(
+          "font-bold",
+          role === "student" ? "text-student font-extrabold" : 
+          role === "teacher" ? "text-teacher font-extrabold" : 
+          role === "researcher" ? "text-researcher font-extrabold" : "text-foreground"
+        )}>
+          {part}
+        </strong>
+      );
+    }
+    return part;
+  });
 }
