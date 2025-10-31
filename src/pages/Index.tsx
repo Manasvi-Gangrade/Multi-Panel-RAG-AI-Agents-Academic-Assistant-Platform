@@ -32,7 +32,7 @@ const roles = [
       "Voice-enabled study assistant",
     ],
     href: "/student",
-    gradient: "from-student to-amber-400",
+    gradient: "from-student via-emerald-500 to-teal-400",
   },
   {
     id: "teacher",
@@ -47,7 +47,7 @@ const roles = [
       "Performance analytics",
     ],
     href: "/teacher",
-    gradient: "from-teacher to-orange-400",
+    gradient: "from-teacher via-indigo-500 to-blue-400",
   },
   {
     id: "researcher",
@@ -62,7 +62,7 @@ const roles = [
       "Convert to presentations",
     ],
     href: "/researcher",
-    gradient: "from-researcher to-red-400",
+    gradient: "from-researcher via-fuchsia-500 to-rose-400",
   },
 ];
 
@@ -102,75 +102,75 @@ const features = [
 export default function Index() {
   return (
     <div className="min-h-screen bg-background">
-      {/* Hero Section */}
-      <section className="relative overflow-hidden">
-        {/* Warm gradient background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-amber-50 via-orange-50/50 to-background" />
-        <div className="absolute inset-0 pattern-dots opacity-20" />
-        
-        {/* Animated warm glow orbs */}
-        <div className="absolute top-10 left-1/4 w-96 h-96 bg-primary/20 rounded-full blur-3xl animate-pulse-slow" />
-        <div className="absolute bottom-10 right-1/4 w-80 h-80 bg-accent/20 rounded-full blur-3xl animate-pulse-slow" style={{ animationDelay: "1s" }} />
+    {/* Hero Section */}
+    <section className="relative overflow-hidden">
+      {/* Clean engineering dot-grid background & Pastel Glows */}
+      <div className="absolute inset-0 bg-gradient-to-br from-student/3 via-teacher/3 to-background" />
+      <div className="absolute inset-0 bg-[radial-gradient(rgba(0,0,0,0.06)_1.2px,transparent_1.2px)] [background-size:24px_24px] opacity-70" />
+      
+      {/* Animated premium light pastel glow blobs - Green, Blue & Pink */}
+      <div className="absolute top-[-10%] left-1/4 w-96 h-96 bg-student/10 rounded-full blur-3xl animate-pulse-slow" />
+      <div className="absolute bottom-[-10%] right-1/4 w-80 h-80 bg-researcher/8 rounded-full blur-3xl animate-pulse-slow" style={{ animationDelay: "1.5s" }} />
 
-        <div className="container relative z-10 pt-16 pb-10 md:pt-20 md:pb-12">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="mx-auto max-w-4xl text-center"
-          >
-            <h1 className="mb-4 font-display text-5xl font-bold tracking-tight md:text-6xl lg:text-7xl">
-              <span className="bg-gradient-to-r from-amber-500 via-orange-500 to-red-500 bg-clip-text text-transparent">
-                Unified Academic
-              </span>
-              <br />
-              <span className="text-foreground">Intelligence Platform</span>
-            </h1>
+      <div className="container relative z-10 pt-16 pb-10 md:pt-20 md:pb-12">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="mx-auto max-w-4xl text-center"
+        >
+          <h1 className="mb-4 font-display text-5xl font-bold tracking-tight md:text-6xl lg:text-7xl">
+            <span className="bg-gradient-to-r from-student via-teacher to-researcher bg-clip-text text-transparent">
+              Unified Academic
+            </span>
+            <br />
+            <span className="text-foreground">Intelligence Platform</span>
+          </h1>
 
-            <p className="mx-auto mb-6 max-w-2xl text-lg text-muted-foreground md:text-xl">
-              Transform your academic journey with AI-powered learning, teaching, and research tools.
-              One platform for students, teachers, and researchers.
+          <p className="mx-auto mb-6 max-w-2xl text-lg text-muted-foreground md:text-xl">
+            Transform your academic journey with AI-powered learning, teaching, and research tools.
+            One platform for students, teachers, and researchers.
+          </p>
+
+          {/* Interactive Portal Dock */}
+          <div className="mt-8 flex flex-col items-center">
+            <p className="text-xs font-semibold tracking-wider text-muted-foreground uppercase mb-3">
+              Select a Portal to Enter
             </p>
-
-            {/* Interactive Portal Dock */}
-            <div className="mt-8 flex flex-col items-center">
-              <p className="text-xs font-semibold tracking-wider text-muted-foreground uppercase mb-3">
-                Select a Portal to Enter
-              </p>
-              <div className="glass-card flex items-center justify-center gap-6 px-8 py-4 rounded-3xl bg-background/40 border border-primary/10 shadow-glow/10 backdrop-blur-md">
-                {roles.map((role, i) => {
-                  const Icon = role.icon;
-                  return (
-                    <motion.div
-                      key={role.id}
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.3 + i * 0.15 }}
-                      className="relative group"
-                    >
-                      <Link to={role.href} className="flex flex-col items-center">
-                        <div className={cn(
-                          "flex h-16 w-16 items-center justify-center rounded-2xl p-[2px] transition-all duration-300",
-                          role.id === "student" ? "bg-gradient-to-br from-student to-amber-400 hover:shadow-student-glow hover:scale-110" :
-                          role.id === "teacher" ? "bg-gradient-to-br from-teacher to-orange-400 hover:shadow-teacher-glow hover:scale-110" :
-                          "bg-gradient-to-br from-researcher to-red-400 hover:shadow-researcher-glow hover:scale-110"
-                        )}>
-                          <div className="flex h-full w-full items-center justify-center rounded-2xl bg-background/90 backdrop-blur">
-                            <Icon className="h-7 w-7 text-foreground transition-transform group-hover:rotate-6" />
-                          </div>
+            <div className="glass-card flex items-center justify-center gap-6 px-8 py-4 rounded-3xl bg-background/40 border border-primary/10 shadow-glow/10 backdrop-blur-md">
+              {roles.map((role, i) => {
+                const Icon = role.icon;
+                return (
+                  <motion.div
+                    key={role.id}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.3 + i * 0.15 }}
+                    className="relative group"
+                  >
+                    <Link to={role.href} className="flex flex-col items-center">
+                      <div className={cn(
+                        "flex h-16 w-16 items-center justify-center rounded-2xl p-[2px] transition-all duration-300",
+                        role.id === "student" ? "bg-gradient-to-br from-student to-emerald-400 hover:shadow-student-glow hover:scale-110" :
+                        role.id === "teacher" ? "bg-gradient-to-br from-teacher to-blue-400 hover:shadow-teacher-glow hover:scale-110" :
+                        "bg-gradient-to-br from-researcher to-fuchsia-400 hover:shadow-researcher-glow hover:scale-110"
+                      )}>
+                        <div className="flex h-full w-full items-center justify-center rounded-2xl bg-background/90 backdrop-blur">
+                          <Icon className="h-7 w-7 text-foreground transition-transform group-hover:rotate-6" />
                         </div>
-                        <span className="mt-2 text-xs font-semibold text-muted-foreground group-hover:text-foreground transition-colors">
-                          {role.title.split(" ")[0]}
-                        </span>
-                      </Link>
-                    </motion.div>
-                  );
-                })}
-              </div>
+                      </div>
+                      <span className="mt-2 text-xs font-semibold text-muted-foreground group-hover:text-foreground transition-colors">
+                        {role.title.split(" ")[0]}
+                      </span>
+                    </Link>
+                  </motion.div>
+                );
+              })}
             </div>
-          </motion.div>
-        </div>
-      </section>
+          </div>
+        </motion.div>
+      </div>
+    </section>
 
       {/* Metrics Section */}
       <section className="relative -mt-4 mb-8">
@@ -182,21 +182,21 @@ export default function Index() {
                 value: "99.4%",
                 desc: "RAG-driven document processing",
                 icon: Brain,
-                color: "text-amber-500 bg-amber-500/10",
+                color: "text-student bg-student/10",
               },
               {
                 title: "Response Latency",
                 value: "< 1.5s",
                 desc: "Real-time query answers",
                 icon: Zap,
-                color: "text-orange-500 bg-orange-500/10",
+                color: "text-teacher bg-teacher/10",
               },
               {
                 title: "Multimodal Support",
                 value: "100%",
                 desc: "PDFs, notes, voice & graphs",
                 icon: FileText,
-                color: "text-red-500 bg-red-500/10",
+                color: "text-researcher bg-researcher/10",
               },
             ].map((stat, i) => (
               <motion.div
@@ -249,10 +249,10 @@ export default function Index() {
               >
                 <Link to={role.href}>
                   <Card className={cn(
-                    "group h-full cursor-pointer transition-all duration-500 hover:-translate-y-2 border-2",
-                    role.id === "student" ? "hover:border-student hover:shadow-[0_0_30px_rgba(245,158,11,0.2)]" :
-                    role.id === "teacher" ? "hover:border-teacher hover:shadow-[0_0_30px_rgba(249,115,22,0.2)]" :
-                    "hover:border-researcher hover:shadow-[0_0_30px_rgba(239,68,68,0.2)]"
+                    "group h-full cursor-pointer transition-all duration-500 hover:-translate-y-2 border-2 bg-white/70 backdrop-blur-md shadow-[0_8px_30px_rgb(0,0,0,0.03)]",
+                    role.id === "student" ? "hover:border-student hover:shadow-[0_15px_30px_rgba(16,185,129,0.15)]" :
+                    role.id === "teacher" ? "hover:border-teacher hover:shadow-[0_15px_30px_rgba(59,130,246,0.15)]" :
+                    "hover:border-researcher hover:shadow-[0_15px_30px_rgba(244,63,94,0.15)]"
                   )}>
                     <CardHeader>
                       <div className={`mb-4 inline-flex h-14 w-14 items-center justify-center rounded-xl bg-gradient-to-br ${role.gradient}`}>
@@ -440,21 +440,21 @@ export default function Index() {
                       value: "15 Cards Generated",
                       desc: "Instant revision for definitions & formulas",
                       percent: 100,
-                      color: "from-student to-amber-500",
+                      color: "from-student to-emerald-400",
                     },
                     {
                       title: "Evaluation Quizzes",
                       value: "10 MCQ Questions Ready",
                       desc: "AI difficulty tagging (Easy, Medium, Hard)",
                       percent: 100,
-                      color: "from-teacher to-orange-500",
+                      color: "from-teacher to-indigo-400",
                     },
                     {
                       title: "Citation & Graphs",
                       value: "APA/IEEE formatted map",
                       desc: "Linked interactive knowledge node map",
                       percent: 100,
-                      color: "from-researcher to-red-500",
+                      color: "from-researcher to-fuchsia-400",
                     },
                   ].map((card, idx) => (
                     <div key={card.title} className="glass-card p-4 rounded-xl border border-border/80 hover:border-primary/20 transition-all">
@@ -486,20 +486,20 @@ export default function Index() {
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-amber-500 via-orange-500 to-red-500 p-10 text-center text-white md:p-14"
+            className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-student via-teacher to-researcher p-10 text-center text-white md:p-14"
           >
             {/* Decorative elements */}
-            <div className="absolute top-0 left-0 w-40 h-40 bg-white/10 rounded-full blur-2xl" />
-            <div className="absolute bottom-0 right-0 w-60 h-60 bg-white/10 rounded-full blur-3xl" />
+            <div className="absolute top-0 left-0 w-40 h-40 bg-white/15 rounded-full blur-2xl animate-pulse-slow" />
+            <div className="absolute bottom-0 right-0 w-60 h-60 bg-white/15 rounded-full blur-3xl animate-pulse-slow" style={{ animationDelay: "2s" }} />
             
             <div className="relative z-10">
               <h2 className="mb-4 font-display text-3xl font-bold md:text-4xl">
                 Ready to Transform Your Academic Journey?
               </h2>
-              <p className="mx-auto mb-8 max-w-xl opacity-90">
+              <p className="mx-auto mb-8 max-w-xl opacity-95 text-white/90">
                 Join thousands of students, teachers, and researchers using AI to achieve more.
               </p>
-              <Button size="lg" className="bg-white text-orange-600 hover:bg-white/90 shadow-lg" asChild>
+              <Button size="lg" className="bg-white text-primary hover:bg-white/90 shadow-lg font-bold" asChild>
                 <Link to="/student">
                   Start Free Today
                   <ArrowRight className="ml-2 h-5 w-5" />
