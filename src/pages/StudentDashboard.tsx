@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
   BookOpen, 
@@ -25,6 +26,7 @@ import { Progress } from "@/components/ui/progress";
 import { RGPVSyllabus, SyllabusSubject } from "@/lib/syllabus";
 
 export default function StudentDashboard() {
+  const location = useLocation();
   const [selectedSubjectCode, setSelectedSubjectCode] = useState<string>("AL-501");
   const [activeUnitNum, setActiveUnitNum] = useState<number>(1);
   const [notesGenerated, setNotesGenerated] = useState<boolean>(false);
@@ -40,6 +42,28 @@ export default function StudentDashboard() {
   const [flashcardMode, setFlashcardMode] = useState<boolean>(false);
   const [flashcardIndex, setFlashcardIndex] = useState<number>(0);
   const [flipped, setFlipped] = useState<boolean>(false);
+
+  // Sync internal modes with route paths
+  useEffect(() => {
+    const path = location.pathname;
+    if (path.endsWith("/quizzes") || path.endsWith("/quiz")) {
+      setQuizMode(true);
+      setFlashcardMode(false);
+      setNotesGenerated(false);
+    } else if (path.endsWith("/flashcards")) {
+      setFlashcardMode(true);
+      setQuizMode(false);
+      setNotesGenerated(false);
+    } else if (path.endsWith("/summaries") || path.endsWith("/vault")) {
+      setNotesGenerated(true);
+      setQuizMode(false);
+      setFlashcardMode(false);
+    } else {
+      setNotesGenerated(false);
+      setQuizMode(false);
+      setFlashcardMode(false);
+    }
+  }, [location.pathname]);
 
   const activeSubject = RGPVSyllabus.find(s => s.code === selectedSubjectCode) || RGPVSyllabus[0];
   const activeUnit = activeSubject.units.find(u => u.number === activeUnitNum) || activeSubject.units[0];

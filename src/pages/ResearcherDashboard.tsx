@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
   FlaskConical, 
@@ -26,6 +27,7 @@ import { KnowledgeGraph } from "@/components/shared/KnowledgeGraph";
 import { RGPVSyllabus, SyllabusSubject } from "@/lib/syllabus";
 
 export default function ResearcherDashboard() {
+  const location = useLocation();
   // Filter electives for research (AL-503A, AL-503B, AL-503C, AL-504A, AL-504B, AL-504C)
   const electives = RGPVSyllabus.filter(s => s.code !== "AL-501" && s.code !== "AL-502");
   
@@ -33,6 +35,16 @@ export default function ResearcherDashboard() {
   const [activeUnitNum, setActiveUnitNum] = useState<number>(1);
   const [labFileMode, setLabFileMode] = useState<boolean>(false);
   const [copiedCode, setCopiedCode] = useState<boolean>(false);
+
+  // Sync internal modes with route paths
+  useEffect(() => {
+    const path = location.pathname;
+    if (path.endsWith("/graph") || path.endsWith("/slides") || path.endsWith("/citations") || path.endsWith("/summaries")) {
+      setLabFileMode(true);
+    } else {
+      setLabFileMode(false);
+    }
+  }, [location.pathname]);
 
   const activeSubject = RGPVSyllabus.find(s => s.code === selectedSubjectCode) || electives[1]; // default to Deep Learning
   const activeUnit = activeSubject.units.find(u => u.number === activeUnitNum) || activeSubject.units[0];

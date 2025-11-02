@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
   Users, 
@@ -26,6 +27,7 @@ import { Label } from "@/components/ui/label";
 import { RGPVSyllabus, SyllabusSubject } from "@/lib/syllabus";
 
 export default function TeacherDashboard() {
+  const location = useLocation();
   const [selectedSubjectCode, setSelectedSubjectCode] = useState<string>("AL-501");
   const [activeUnitNum, setActiveUnitNum] = useState<number>(1);
   const [paperType, setPaperType] = useState<"MST1" | "MST2" | "EndSem">("MST1");
@@ -35,6 +37,21 @@ export default function TeacherDashboard() {
 
   // Assignment Evaluator Sandbox State
   const [evaluatorActive, setEvaluatorActive] = useState<boolean>(false);
+
+  // Sync internal modes with route paths
+  useEffect(() => {
+    const path = location.pathname;
+    if (path.endsWith("/papers")) {
+      setGeneratedPaper(true);
+      setEvaluatorActive(false);
+    } else if (path.endsWith("/assignments") || path.endsWith("/evaluation") || path.endsWith("/analytics")) {
+      setEvaluatorActive(true);
+      setGeneratedPaper(false);
+    } else {
+      setGeneratedPaper(false);
+      setEvaluatorActive(false);
+    }
+  }, [location.pathname]);
   const [studentAnswer, setStudentAnswer] = useState<string>("");
   const [evaluationResult, setEvaluationResult] = useState<{
     score: number;
