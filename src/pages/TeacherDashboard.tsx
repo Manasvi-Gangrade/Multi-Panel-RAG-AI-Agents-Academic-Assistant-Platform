@@ -228,7 +228,7 @@ export default function TeacherDashboard() {
                   className={`flex flex-col justify-between rounded-2xl border p-4 cursor-pointer transition-all duration-300 ${
                     isActive 
                       ? "border-teacher bg-teacher/10 ring-1 ring-teacher shadow-md shadow-teacher/5" 
-                      : "border-border bg-card hover:bg-accent/40"
+                      : "border-border bg-card hover:bg-teacher/10 hover:border-teacher/30"
                   }`}
                 >
                   <div className="space-y-1">
@@ -320,7 +320,7 @@ export default function TeacherDashboard() {
                           className={`flex h-9 w-full items-center justify-center rounded-lg border font-bold text-xs transition-all ${
                             isActive 
                               ? "bg-teacher text-primary-foreground border-teacher ring-1 ring-teacher" 
-                              : "border-border bg-card hover:bg-accent/40"
+                              : "border-border bg-card hover:bg-teacher/10 hover:border-teacher/20"
                           }`}
                         >
                           U-{u.number}

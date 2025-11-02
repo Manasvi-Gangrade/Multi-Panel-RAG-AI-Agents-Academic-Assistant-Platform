@@ -102,124 +102,205 @@ const features = [
 export default function Index() {
   return (
     <div className="min-h-screen bg-background">
-    {/* Hero Section */}
+      {/* Top Centered Project Brand Header */}
+      <header className="relative z-20 w-full pt-6 pb-2 text-center flex justify-center items-center">
+        <Link to="/" className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full glass-card border border-primary/10 bg-background/50 hover:border-primary/20 transition-all duration-300 shadow-sm">
+          <Brain className="h-5 w-5 text-student animate-pulse" />
+          <span className="font-display font-bold text-sm tracking-tight text-foreground">
+            Multi-Panel RAG AI Agents Academic Assistant Platform
+          </span>
+          <span className="w-1.5 h-1.5 rounded-full bg-teacher animate-ping" />
+        </Link>
+      </header>
+
+      {/* Hero Section */}
     <section className="relative overflow-hidden">
       {/* Clean engineering dot-grid background & Pastel Glows */}
       <div className="absolute inset-0 bg-gradient-to-br from-student/3 via-teacher/3 to-background" />
       <div className="absolute inset-0 bg-[radial-gradient(rgba(0,0,0,0.06)_1.2px,transparent_1.2px)] [background-size:24px_24px] opacity-70" />
       
       {/* Animated premium light pastel glow blobs - Green, Blue & Pink */}
-      <div className="absolute top-[-10%] left-1/4 w-96 h-96 bg-student/10 rounded-full blur-3xl animate-pulse-slow" />
-      <div className="absolute bottom-[-10%] right-1/4 w-80 h-80 bg-researcher/8 rounded-full blur-3xl animate-pulse-slow" style={{ animationDelay: "1.5s" }} />
+      <div className="absolute top-[10%] right-[-10%] w-96 h-96 bg-student/10 rounded-full blur-3xl animate-pulse-slow" />
+      <div className="absolute bottom-[-10%] left-[-10%] w-80 h-80 bg-researcher/8 rounded-full blur-3xl animate-pulse-slow" style={{ animationDelay: "1.5s" }} />
 
       <div className="container relative z-10 pt-16 pb-10 md:pt-20 md:pb-12">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="mx-auto max-w-4xl text-center"
-        >
-          <h1 className="mb-4 font-display text-5xl font-bold tracking-tight md:text-6xl lg:text-7xl">
-            <span className="bg-gradient-to-r from-student via-teacher to-researcher bg-clip-text text-transparent">
-              Unified Academic
-            </span>
-            <br />
-            <span className="text-foreground">Intelligence Platform</span>
-          </h1>
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+          
+          {/* Left Column: Heading, description, and stats stacked (6 cols) */}
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6 }}
+            className="lg:col-span-6 space-y-6 text-left flex flex-col items-start"
+          >
+            {/* Premium Glow Badge */}
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-xs font-semibold text-primary animate-pulse-slow">
+              <Sparkles className="h-3.5 w-3.5" />
+              <span>Next-Generation Academic Workspace</span>
+            </div>
 
-          <p className="mx-auto mb-6 max-w-2xl text-lg text-muted-foreground md:text-xl">
-            Transform your academic journey with AI-powered learning, teaching, and research tools.
-            One platform for students, teachers, and researchers.
-          </p>
+            <h1 className="font-display text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl leading-tight">
+              <span className="bg-gradient-to-r from-student via-teacher to-researcher bg-clip-text text-transparent">
+                Unified Academic
+              </span>
+              <br />
+              <span className="text-foreground">Intelligence Platform</span>
+            </h1>
 
-          {/* Interactive Portal Dock */}
-          <div className="mt-8 flex flex-col items-center">
-            <p className="text-xs font-semibold tracking-wider text-muted-foreground uppercase mb-3">
-              Select a Portal to Enter
+            <p className="text-base text-muted-foreground md:text-lg max-w-xl leading-relaxed">
+              Transform your academic journey with AI-powered learning, teaching, and research tools.
+              One context-aware platform for students, teachers, and researchers.
             </p>
-            <div className="glass-card flex items-center justify-center gap-6 px-8 py-4 rounded-3xl bg-background/40 border border-primary/10 shadow-glow/10 backdrop-blur-md">
-              {roles.map((role, i) => {
-                const Icon = role.icon;
-                return (
-                  <motion.div
-                    key={role.id}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.3 + i * 0.15 }}
-                    className="relative group"
-                  >
-                    <Link to={role.href} className="flex flex-col items-center">
-                      <div className={cn(
-                        "flex h-16 w-16 items-center justify-center rounded-2xl p-[2px] transition-all duration-300",
-                        role.id === "student" ? "bg-gradient-to-br from-student to-emerald-400 hover:shadow-student-glow hover:scale-110" :
-                        role.id === "teacher" ? "bg-gradient-to-br from-teacher to-blue-400 hover:shadow-teacher-glow hover:scale-110" :
-                        "bg-gradient-to-br from-researcher to-fuchsia-400 hover:shadow-researcher-glow hover:scale-110"
-                      )}>
-                        <div className="flex h-full w-full items-center justify-center rounded-2xl bg-background/90 backdrop-blur">
-                          <Icon className="h-7 w-7 text-foreground transition-transform group-hover:rotate-6" />
+
+            {/* Stats stacked for space-filling */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 w-full pt-2">
+              {[
+                {
+                  title: "Accuracy",
+                  value: "99.4%",
+                  desc: "RAG-driven processing",
+                  icon: Brain,
+                  color: "text-student bg-student/10",
+                },
+                {
+                  title: "Latency",
+                  value: "< 1.5s",
+                  desc: "Real-time answers",
+                  icon: Zap,
+                  color: "text-teacher bg-teacher/10",
+                },
+                {
+                  title: "Multimodal",
+                  value: "100%",
+                  desc: "PDF, voice & graphs",
+                  icon: FileText,
+                  color: "text-researcher bg-researcher/10",
+                },
+              ].map((stat, i) => (
+                <div
+                  key={stat.title}
+                  className="glass-card flex flex-col justify-between p-3.5 rounded-2xl border border-primary/5 hover:border-primary/10 transition-all shadow-sm bg-background/30 backdrop-blur-sm"
+                >
+                  <div className="flex items-center gap-2">
+                    <div className={cn("p-1.5 rounded-lg shrink-0", stat.color)}>
+                      <stat.icon className="h-3.5 w-3.5" />
+                    </div>
+                    <h4 className="text-base font-bold font-display">{stat.value}</h4>
+                  </div>
+                  <div className="mt-2">
+                    <p className="text-[10px] font-bold text-foreground leading-none">{stat.title}</p>
+                    <p className="text-[8px] text-muted-foreground mt-0.5 truncate">{stat.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+          
+          {/* Right Column: Academic AI in Action Mock Chat (6 cols) */}
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="lg:col-span-6 space-y-6"
+          >
+            <div className="relative">
+              {/* Visual Label */}
+              <div className="absolute -top-3 -left-3 z-20 inline-flex items-center gap-1.5 px-3 py-1 rounded-xl bg-background/90 border border-primary/20 text-[10px] font-bold text-primary uppercase shadow-md backdrop-blur">
+                <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-ping" />
+                <span>Academic AI In Action</span>
+              </div>
+
+              {/* Mock Chat Card */}
+              <div className="glass-card rounded-2xl border border-primary/15 overflow-hidden shadow-xl bg-card/85 backdrop-blur-lg">
+                {/* Workspace Header */}
+                <div className="flex items-center justify-between bg-muted/40 px-4 py-3 border-b border-border">
+                  <div className="flex items-center gap-2">
+                    <div className="flex gap-1.5">
+                      <span className="w-2.5 h-2.5 rounded-full bg-red-400" />
+                      <span className="w-2.5 h-2.5 rounded-full bg-yellow-400" />
+                      <span className="w-2.5 h-2.5 rounded-full bg-green-400" />
+                    </div>
+                    <span className="text-[10px] font-bold text-muted-foreground ml-2">Academic Workspace v1.2</span>
+                  </div>
+                  <span className="inline-flex items-center gap-1 text-[9px] font-bold text-amber-500 uppercase bg-amber-500/10 px-2 py-0.5 rounded-full">
+                    Active Session
+                  </span>
+                </div>
+
+                {/* Workspace Content */}
+                <div className="p-4 space-y-3 font-sans text-xs min-h-[260px] flex flex-col justify-between bg-white/40">
+                  <div className="space-y-3">
+                    {/* Message 1 */}
+                    <div className="flex items-start gap-2.5">
+                      <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
+                        <Users className="h-3.5 w-3.5" />
+                      </div>
+                      <div className="bg-muted/80 px-3 py-2 rounded-2xl rounded-tl-none max-w-[85%] border border-border/20">
+                        <p className="text-[10px] font-bold text-foreground">Manasvi (Student)</p>
+                        <p className="text-muted-foreground mt-0.5 text-[11px] leading-relaxed">
+                          Hey, can you help me revise neural networks and make a Hinglish summary of this paper?
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Message 2 */}
+                    <div className="flex items-start gap-2.5">
+                      <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-amber-500 to-orange-500 text-white">
+                        <Brain className="h-3.5 w-3.5" />
+                      </div>
+                      <div className="bg-primary/5 border border-primary/10 px-3 py-2 rounded-2xl rounded-tl-none max-w-[85%]">
+                        <p className="text-[10px] font-bold text-amber-600 flex items-center gap-1">
+                          <Sparkles className="h-2.5 w-2.5 animate-pulse" />
+                          Academic AI Assistant
+                        </p>
+                        <p className="text-foreground mt-0.5 text-[11px] leading-relaxed">
+                          Absolutely! Document ingest complete. Here is the summary:
+                        </p>
+                        <div className="mt-1.5 pl-2.5 border-l border-primary/30 space-y-1 text-[10px] text-muted-foreground leading-normal">
+                          <p>● <strong className="text-foreground">Core Arch:</strong> 12-layer attention block with custom residual gates.</p>
+                          <p>● <strong className="text-foreground">Methodology (Hinglish):</strong> Dataset ko normalize karke residual connections use kiya hai taaki deep layers mein gradient vanish na ho.</p>
                         </div>
                       </div>
-                      <span className="mt-2 text-xs font-semibold text-muted-foreground group-hover:text-foreground transition-colors">
-                        {role.title.split(" ")[0]}
-                      </span>
-                    </Link>
-                  </motion.div>
-                );
-              })}
+                    </div>
+                  </div>
+
+                  {/* Chat Input Bar */}
+                  <div className="flex items-center gap-2 mt-3 pt-2.5 border-t border-border/30">
+                    <div className="flex-1 bg-muted/50 px-3 py-1.5 rounded-lg text-[10px] text-muted-foreground flex justify-between items-center border border-border/10">
+                      <span>Ask anything about your document...</span>
+                      <span className="text-[8px] bg-background border px-1.5 py-0.2 rounded text-foreground font-mono">⌘K</span>
+                    </div>
+                    <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-gradient-to-r from-amber-500 to-orange-500 text-white cursor-pointer hover:opacity-90">
+                      <ArrowRight className="h-3.5 w-3.5" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Mini Deliverables Tracker overlay below the chat */}
+              <div className="grid grid-cols-3 gap-2 mt-4">
+                {[
+                  { title: "Flashcards", desc: "15 Cards Ready", color: "from-student to-emerald-400" },
+                  { title: "Quizzes", desc: "10 MCQs Ready", color: "from-teacher to-indigo-400" },
+                  { title: "Graphs", desc: "APA/IEEE Map", color: "from-researcher to-fuchsia-400" },
+                ].map((card, idx) => (
+                  <div key={card.title} className="glass-card p-2.5 rounded-xl border border-border bg-background/70 shadow-sm flex flex-col justify-between hover:scale-105 transition-transform duration-300">
+                    <div>
+                      <h4 className="text-[10px] font-bold text-foreground leading-none">{card.title}</h4>
+                      <p className="text-[8px] text-muted-foreground mt-1 truncate">{card.desc}</p>
+                    </div>
+                    <div className="w-full bg-muted h-1 rounded-full overflow-hidden mt-2">
+                      <div className={`bg-gradient-to-r ${card.color} h-full w-full`} />
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
-          </div>
-        </motion.div>
+          </motion.div>
+
+        </div>
       </div>
     </section>
-
-      {/* Metrics Section */}
-      <section className="relative -mt-4 mb-8">
-        <div className="container max-w-5xl">
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-            {[
-              {
-                title: "Contextual Accuracy",
-                value: "99.4%",
-                desc: "RAG-driven document processing",
-                icon: Brain,
-                color: "text-student bg-student/10",
-              },
-              {
-                title: "Response Latency",
-                value: "< 1.5s",
-                desc: "Real-time query answers",
-                icon: Zap,
-                color: "text-teacher bg-teacher/10",
-              },
-              {
-                title: "Multimodal Support",
-                value: "100%",
-                desc: "PDFs, notes, voice & graphs",
-                icon: FileText,
-                color: "text-researcher bg-researcher/10",
-              },
-            ].map((stat, i) => (
-              <motion.div
-                key={stat.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="glass-card flex items-center gap-4 p-5 rounded-2xl border border-primary/5 hover:border-primary/20 transition-all hover:shadow-md"
-              >
-                <div className={cn("p-3 rounded-xl", stat.color)}>
-                  <stat.icon className="h-5 w-5" />
-                </div>
-                <div>
-                  <h4 className="text-xl font-bold font-display">{stat.value}</h4>
-                  <p className="text-xs font-semibold text-foreground">{stat.title}</p>
-                  <p className="text-[11px] text-muted-foreground mt-0.5">{stat.desc}</p>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* Role Selection */}
       <section className="py-14 md:py-16">
@@ -237,6 +318,40 @@ export default function Index() {
               Select your academic role to access personalized AI-powered tools and features
             </p>
           </motion.div>
+
+          {/* Centered Portal Select Dock */}
+          <div className="flex flex-col items-center mb-10">
+            <p className="text-[10px] font-bold tracking-wider text-muted-foreground uppercase mb-3">
+              Quick Select: Click an Icon to Enter Portal
+            </p>
+            <div className="glass-card flex items-center justify-center gap-6 px-6 py-3.5 rounded-3xl bg-background/40 border border-primary/10 shadow-sm backdrop-blur-md">
+              {roles.map((role, i) => {
+                const Icon = role.icon;
+                return (
+                  <motion.div
+                    key={role.id}
+                    className="relative group"
+                  >
+                    <Link to={role.href} className="flex flex-col items-center">
+                      <div className={cn(
+                        "flex h-12 w-12 items-center justify-center rounded-2xl p-[2px] transition-all duration-300",
+                        role.id === "student" ? "bg-gradient-to-br from-student to-emerald-400 hover:shadow-student-glow hover:scale-110" :
+                        role.id === "teacher" ? "bg-gradient-to-br from-teacher to-blue-400 hover:shadow-teacher-glow hover:scale-110" :
+                        "bg-gradient-to-br from-researcher to-fuchsia-400 hover:shadow-researcher-glow hover:scale-110"
+                      )}>
+                        <div className="flex h-full w-full items-center justify-center rounded-2xl bg-background/90 backdrop-blur">
+                          <Icon className="h-5 w-5 text-foreground transition-transform group-hover:rotate-6" />
+                        </div>
+                      </div>
+                      <span className="mt-1.5 text-[9px] font-bold text-muted-foreground group-hover:text-foreground transition-colors">
+                        {role.title.split(" ")[0]}
+                      </span>
+                    </Link>
+                  </motion.div>
+                );
+              })}
+            </div>
+          </div>
 
           <div className="grid gap-8 md:grid-cols-3">
             {roles.map((role, i) => (
@@ -322,162 +437,7 @@ export default function Index() {
         </div>
       </section>
 
-      {/* Live Preview Sandbox */}
-      <section className="border-t border-border bg-gradient-to-b from-background to-muted/20 py-16 md:py-20 overflow-hidden">
-        <div className="container">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="mx-auto mb-12 max-w-2xl text-center"
-          >
-            <h2 className="mb-3 font-display text-3xl font-bold md:text-4xl">
-              Academic AI in Action
-            </h2>
-            <p className="text-muted-foreground">
-              Experience the power of real-time academic analysis, Hinglish chat, and automated study aides
-            </p>
-          </motion.div>
-
-          <div className="mx-auto max-w-5xl">
-            <div className="grid gap-8 md:grid-cols-12 items-center">
-              {/* Left Side: Mock Chat Workspace */}
-              <div className="md:col-span-7">
-                <motion.div
-                  initial={{ opacity: 0, x: -30 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5 }}
-                  className="glass-card rounded-2xl border border-primary/15 overflow-hidden shadow-xl"
-                >
-                  {/* Workspace Header */}
-                  <div className="flex items-center justify-between bg-muted/50 px-4 py-3 border-b border-border">
-                    <div className="flex items-center gap-2">
-                      <div className="flex gap-1.5">
-                        <span className="w-3 h-3 rounded-full bg-red-400" />
-                        <span className="w-3 h-3 rounded-full bg-yellow-400" />
-                        <span className="w-3 h-3 rounded-full bg-green-400" />
-                      </div>
-                      <span className="text-xs font-semibold text-muted-foreground ml-2">Academic AI Workspace v1.2</span>
-                    </div>
-                    <span className="inline-flex items-center gap-1 text-[10px] font-bold text-amber-500 uppercase bg-amber-500/10 px-2 py-0.5 rounded-full">
-                      ● Active Session
-                    </span>
-                  </div>
-
-                  {/* Workspace Content */}
-                  <div className="p-5 space-y-4 font-sans text-sm min-h-[300px] flex flex-col justify-between">
-                    <div className="space-y-4">
-                      {/* Message 1 */}
-                      <div className="flex items-start gap-3">
-                        <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
-                          <Users className="h-4 w-4" />
-                        </div>
-                        <div className="bg-muted px-4 py-2.5 rounded-2xl rounded-tl-none max-w-[85%]">
-                          <p className="text-xs font-bold text-foreground">Manasvi (Student)</p>
-                          <p className="text-muted-foreground mt-0.5">
-                            Hey, can you help me revise this paper on neural network architectures and make a Hinglish summary of its methodology?
-                          </p>
-                        </div>
-                      </div>
-
-                      {/* Message 2 */}
-                      <div className="flex items-start gap-3">
-                        <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-amber-500 to-orange-500 text-white">
-                          <Brain className="h-4 w-4" />
-                        </div>
-                        <div className="bg-primary/5 border border-primary/10 px-4 py-2.5 rounded-2xl rounded-tl-none max-w-[85%]">
-                          <p className="text-xs font-bold text-amber-600 flex items-center gap-1">
-                            <Sparkles className="h-3 w-3 animate-pulse" />
-                            Academic AI Assistant
-                          </p>
-                          <p className="text-foreground mt-1">
-                            Absolutely! Document ingest complete. Summary ready:
-                          </p>
-                          <div className="mt-2 pl-3 border-l-2 border-primary/30 space-y-1 text-xs text-muted-foreground">
-                            <p>● <strong className="text-foreground">Core Arch:</strong> 12-layer attention block with custom residual gates.</p>
-                            <p>● <strong className="text-foreground">Methodology (Hinglish):</strong> Dataset ko normalize karke residual connections use kiya hai taaki deep layers mein gradient vanish na ho.</p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Chat Input Bar */}
-                    <div className="flex items-center gap-2 mt-4 pt-3 border-t border-border/50">
-                      <div className="flex-1 bg-muted px-4 py-2 rounded-xl text-xs text-muted-foreground flex justify-between items-center">
-                        <span>Ask anything about your document...</span>
-                        <div className="flex items-center gap-2">
-                          <span className="text-[10px] bg-background border px-1.5 py-0.5 rounded text-foreground font-mono">⌘K</span>
-                        </div>
-                      </div>
-                      <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 text-white cursor-pointer hover:opacity-90">
-                        <ArrowRight className="h-4 w-4" />
-                      </div>
-                    </div>
-                  </div>
-                </motion.div>
-              </div>
-
-              {/* Right Side: Visual Sandbox Cards */}
-              <div className="md:col-span-5 space-y-4">
-                <motion.div
-                  initial={{ opacity: 0, x: 30 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5 }}
-                  className="space-y-4"
-                >
-                  <h3 className="text-2xl font-bold font-display text-foreground tracking-tight">
-                    Smart Deliverables
-                  </h3>
-                  <p className="text-sm text-muted-foreground mb-6">
-                    Our AI automatically constructs secondary study resources, saving you hundreds of hours.
-                  </p>
-
-                  {[
-                    {
-                      title: "Revision Flashcards",
-                      value: "15 Cards Generated",
-                      desc: "Instant revision for definitions & formulas",
-                      percent: 100,
-                      color: "from-student to-emerald-400",
-                    },
-                    {
-                      title: "Evaluation Quizzes",
-                      value: "10 MCQ Questions Ready",
-                      desc: "AI difficulty tagging (Easy, Medium, Hard)",
-                      percent: 100,
-                      color: "from-teacher to-indigo-400",
-                    },
-                    {
-                      title: "Citation & Graphs",
-                      value: "APA/IEEE formatted map",
-                      desc: "Linked interactive knowledge node map",
-                      percent: 100,
-                      color: "from-researcher to-fuchsia-400",
-                    },
-                  ].map((card, idx) => (
-                    <div key={card.title} className="glass-card p-4 rounded-xl border border-border/80 hover:border-primary/20 transition-all">
-                      <div className="flex justify-between items-start mb-2">
-                        <div>
-                          <h4 className="text-sm font-bold text-foreground">{card.title}</h4>
-                          <p className="text-[11px] text-muted-foreground mt-0.5">{card.desc}</p>
-                        </div>
-                        <span className="text-xs font-bold text-foreground bg-muted px-2 py-0.5 rounded">
-                          {card.value}
-                        </span>
-                      </div>
-                      <div className="w-full bg-muted h-1.5 rounded-full overflow-hidden">
-                        <div className={`bg-gradient-to-r ${card.color} h-full w-[100%]`} />
-                      </div>
-                    </div>
-                  ))}
-                </motion.div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      
 
       {/* Footer CTA */}
       <section className="py-14 md:py-16">
@@ -513,7 +473,7 @@ export default function Index() {
       {/* Simple Footer */}
       <footer className="border-t border-border py-8">
         <div className="container text-center text-sm text-muted-foreground">
-          <p>© 2026 Academic AI Platform. Built with intelligence.</p>
+          <p>© 2026 Multi-Panel RAG AI Agents Academic Assistant Platform. Built with intelligence.</p>
         </div>
       </footer>
     </div>

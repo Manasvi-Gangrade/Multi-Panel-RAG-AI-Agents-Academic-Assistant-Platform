@@ -197,7 +197,7 @@ export default function StudentDashboard() {
                   className={`relative flex flex-col justify-between rounded-2xl border p-4 cursor-pointer transition-all duration-300 ${
                     isActive 
                       ? "border-student bg-student/10 ring-1 ring-student shadow-md shadow-student/5" 
-                      : "border-border bg-card hover:bg-accent/40"
+                      : "border-border bg-card hover:bg-student/10 hover:border-student/30"
                   }`}
                 >
                   <div className="space-y-1">
@@ -284,11 +284,11 @@ export default function StudentDashboard() {
                       className={`group flex items-start gap-4 rounded-2xl border p-4 cursor-pointer transition-all duration-300 ${
                         isActive 
                           ? "border-student/50 bg-gradient-to-r from-student/10 via-student/5 to-card ring-1 ring-student/30 shadow-sm" 
-                          : "border-border bg-card hover:bg-accent/40"
+                          : "border-border bg-card hover:bg-student/10 hover:border-student/20"
                       }`}
                     >
                       <div className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-xl font-bold text-sm ${
-                        isActive ? "bg-student text-primary-foreground" : "bg-muted text-muted-foreground group-hover:bg-accent group-hover:text-foreground"
+                        isActive ? "bg-student text-primary-foreground" : "bg-muted text-muted-foreground group-hover:bg-student group-hover:text-student"
                       }`}>
                         U-{unit.number}
                       </div>
@@ -437,7 +437,7 @@ export default function StudentDashboard() {
                           const isSelected = userAnswers[currentQuizIndex] === oIdx.toString();
                           const isCorrect = oIdx === mockQuizQuestions[currentQuizIndex].correctIndex;
                           
-                          let optionStyle = "border-border bg-card hover:bg-accent/40";
+                          let optionStyle = "border-border bg-card hover:bg-student/10 hover:border-student/20";
                           if (isSelected) {
                             optionStyle = "border-student bg-student/10 ring-1 ring-student";
                           }

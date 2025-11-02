@@ -37,6 +37,7 @@ const roleConfig = {
     icon: GraduationCap,
     color: "text-student",
     bgColor: "bg-student",
+    hoverClass: "hover:bg-student/10 hover:text-student",
     items: [
       { label: "Dashboard", icon: Home, href: "/student" },
       { label: "Knowledge Vault", icon: BookOpen, href: "/student/vault" },
@@ -52,6 +53,7 @@ const roleConfig = {
     icon: Users,
     color: "text-teacher",
     bgColor: "bg-teacher",
+    hoverClass: "hover:bg-teacher/10 hover:text-teacher",
     items: [
       { label: "Dashboard", icon: Home, href: "/teacher" },
       { label: "Upload Materials", icon: Upload, href: "/teacher/upload" },
@@ -66,6 +68,7 @@ const roleConfig = {
     icon: FlaskConical,
     color: "text-researcher",
     bgColor: "bg-researcher",
+    hoverClass: "hover:bg-researcher/10 hover:text-researcher",
     items: [
       { label: "Dashboard", icon: Home, href: "/researcher" },
       { label: "Upload Papers", icon: Upload, href: "/researcher/upload" },
@@ -113,7 +116,7 @@ export function DashboardSidebar({ role }: DashboardSidebarProps) {
                     "flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors",
                     isActive
                       ? cn(config.bgColor, "text-primary-foreground")
-                      : "text-muted-foreground hover:bg-accent hover:text-foreground"
+                      : cn("text-muted-foreground hover:text-foreground", config.hoverClass)
                   )}
                 >
                   <ItemIcon className="h-4 w-4" />
@@ -129,7 +132,10 @@ export function DashboardSidebar({ role }: DashboardSidebarProps) {
           <Link to="/">
             <motion.div
               whileHover={{ x: 4 }}
-              className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-muted-foreground hover:bg-accent hover:text-foreground transition-colors"
+              className={cn(
+                "flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-muted-foreground transition-colors",
+                config.hoverClass
+              )}
             >
               <Home className="h-4 w-4" />
               Back to Home
@@ -138,7 +144,10 @@ export function DashboardSidebar({ role }: DashboardSidebarProps) {
           <Link to={`/${role}/settings`}>
             <motion.div
               whileHover={{ x: 4 }}
-              className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-muted-foreground hover:bg-accent hover:text-foreground transition-colors"
+              className={cn(
+                "flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-muted-foreground transition-colors",
+                config.hoverClass
+              )}
             >
               <Settings className="h-4 w-4" />
               Settings

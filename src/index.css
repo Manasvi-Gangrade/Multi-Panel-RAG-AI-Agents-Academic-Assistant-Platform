@@ -6,76 +6,76 @@
 
 @layer base {
   :root {
-    --background: 210 20% 98%;
-    --foreground: 222 47% 11%;
+    --background: 215 35% 98%;
+    --foreground: 224 47% 11%;
 
     --card: 0 0% 100%;
-    --card-foreground: 222 47% 11%;
+    --card-foreground: 224 47% 11%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222 47% 11%;
+    --popover-foreground: 224 47% 11%;
 
-    --primary: 221 83% 53%;
+    --primary: 226 96% 56%;
     --primary-foreground: 210 40% 98%;
-    --primary-glow: 221 90% 63%;
+    --primary-glow: 226 100% 65%;
 
-    --secondary: 210 16% 94%;
-    --secondary-foreground: 222 47% 11%;
+    --secondary: 214 20% 94%;
+    --secondary-foreground: 224 47% 11%;
 
-    --muted: 210 16% 95%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 214 20% 95%;
+    --muted-foreground: 217.4 16.3% 46.9%;
 
-    --accent: 339 90% 51%;
-    --accent-foreground: 222 47% 11%;
+    --accent: 343 92% 56%;
+    --accent-foreground: 224 47% 11%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 210 16% 90%;
-    --input: 210 16% 90%;
-    --ring: 221 83% 53%;
+    --border: 214 20% 90%;
+    --input: 214 20% 90%;
+    --ring: 226 96% 56%;
 
-    --radius: 0.75rem;
+    --radius: 0.85rem;
 
-    /* Distinct Role Colors - Premium Light Palette */
-    --student: 142 72% 45%;
-    --student-foreground: 222 47% 11%;
-    --student-glow: 142 80% 55%;
+    /* Distinct Role Colors - Ultra-Premium Vibrant HSL Palette */
+    --student: 162 76% 41%;
+    --student-foreground: 224 47% 11%;
+    --student-glow: 162 85% 48%;
     
-    --teacher: 221 83% 53%;
+    --teacher: 226 96% 56%;
     --teacher-foreground: 210 40% 98%;
-    --teacher-glow: 221 90% 63%;
+    --teacher-glow: 226 100% 65%;
     
-    --researcher: 339 90% 51%;
+    --researcher: 343 92% 56%;
     --researcher-foreground: 210 40% 98%;
-    --researcher-glow: 339 95% 61%;
+    --researcher-glow: 343 98% 64%;
 
     /* Gradients - Ultra Clean Spectrum */
-    --gradient-primary: linear-gradient(135deg, hsl(221 83% 53%) 0%, hsl(242 80% 60%) 100%);
-    --gradient-student: linear-gradient(135deg, hsl(142 72% 45%) 0%, hsl(160 84% 50%) 100%);
-    --gradient-teacher: linear-gradient(135deg, hsl(221 83% 53%) 0%, hsl(242 80% 60%) 100%);
-    --gradient-researcher: linear-gradient(135deg, hsl(339 90% 51%) 0%, hsl(315 85% 55%) 100%);
-    --gradient-hero: linear-gradient(135deg, hsl(142 72% 45%) 0%, hsl(221 83% 53%) 50%, hsl(339 90% 51%) 100%);
-    --gradient-glass: linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(240,245,255,0.6) 100%);
+    --gradient-primary: linear-gradient(135deg, hsl(226 96% 56%) 0%, hsl(245 80% 62%) 100%);
+    --gradient-student: linear-gradient(135deg, hsl(162 76% 41%) 0%, hsl(142 72% 45%) 100%);
+    --gradient-teacher: linear-gradient(135deg, hsl(226 96% 56%) 0%, hsl(210 90% 60%) 100%);
+    --gradient-researcher: linear-gradient(135deg, hsl(343 92% 56%) 0%, hsl(326 96% 51%) 100%);
+    --gradient-hero: linear-gradient(135deg, hsl(162 76% 41%) 0%, hsl(226 96% 56%) 50%, hsl(343 92% 56%) 100%);
+    --gradient-glass: linear-gradient(135deg, rgba(255,255,255,0.92) 0%, rgba(245,249,255,0.7) 100%);
 
     /* Shadows - Color specific soft lifts */
-    --shadow-sm: 0 1px 2px 0 rgba(0,0,0,0.03);
-    --shadow-md: 0 4px 12px -2px rgba(0,0,0,0.05), 0 2px 6px -1px rgba(0,0,0,0.03);
-    --shadow-lg: 0 12px 20px -3px rgba(0,0,0,0.06), 0 4px 8px -2px rgba(0,0,0,0.04);
-    --shadow-xl: 0 20px 30px -5px rgba(0,0,0,0.08), 0 8px 16px -6px rgba(0,0,0,0.06);
-    --shadow-glow: 0 0 35px hsl(221 83% 53% / 0.15);
-    --shadow-student-glow: 0 0 35px hsl(142 72% 45% / 0.15);
-    --shadow-teacher-glow: 0 0 35px hsl(221 83% 53% / 0.15);
-    --shadow-researcher-glow: 0 0 35px hsl(339 90% 51% / 0.15);
+    --shadow-sm: 0 1px 2px 0 rgba(0,0,0,0.02);
+    --shadow-md: 0 4px 16px -2px rgba(220,225,235,0.5), 0 2px 8px -1px rgba(0,0,0,0.02);
+    --shadow-lg: 0 16px 24px -4px rgba(220,225,235,0.6), 0 4px 12px -2px rgba(0,0,0,0.03);
+    --shadow-xl: 0 24px 36px -6px rgba(215,222,235,0.7), 0 10px 20px -8px rgba(0,0,0,0.04);
+    --shadow-glow: 0 0 35px hsl(226 96% 56% / 0.15);
+    --shadow-student-glow: 0 0 35px hsl(162 76% 41% / 0.15);
+    --shadow-teacher-glow: 0 0 35px hsl(226 96% 56% / 0.15);
+    --shadow-researcher-glow: 0 0 35px hsl(343 92% 56% / 0.15);
 
     --sidebar-background: 0 0% 100%;
-    --sidebar-foreground: 222 47% 11%;
-    --sidebar-primary: 221 83% 53%;
+    --sidebar-foreground: 224 47% 11%;
+    --sidebar-primary: 226 96% 56%;
     --sidebar-primary-foreground: 210 40% 98%;
-    --sidebar-accent: 210 16% 95%;
-    --sidebar-accent-foreground: 222 47% 11%;
-    --sidebar-border: 210 16% 90%;
-    --sidebar-ring: 221 83% 53%;
+    --sidebar-accent: 214 20% 95%;
+    --sidebar-accent-foreground: 224 47% 11%;
+    --sidebar-border: 214 20% 90%;
+    --sidebar-ring: 226 96% 56%;
   }
 
   .dark {
